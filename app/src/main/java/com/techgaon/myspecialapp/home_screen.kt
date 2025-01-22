@@ -1,5 +1,6 @@
 package com.techgaon.myspecialapp
 
+import StudentsDatabaseHelper
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class home_screen : AppCompatActivity() {
 
@@ -31,21 +34,57 @@ class home_screen : AppCompatActivity() {
 
         themeStatusTextView = findViewById(R.id.textViewWelcome)
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//initialize AuthHelper
+
+        // sqlite
+
+        val dbHelper = StudentsDatabaseHelper(this)
+
+        //add
+        dbHelper.addStudent("Amit", "10th", 85)
+        dbHelper.addStudent("Ajay", "BSc", 90)
+
+        //  data fetch
+        val students = dbHelper.getAllStudents()
+        students.forEach {
+            println("ID: ${it["id"]}, Name: ${it["name"]}, Class: ${it["class"]}, Marks: ${it["marks"]}")
+        }
+
+        // Kisi student ke marks update karo
+        dbHelper.updateMarks(1, 95)
+
+        // Kisi student ka data delete karo
+        dbHelper.deleteStudent(1)
+        // Initialize AuthHelper
         val authH = AuthHelper(this)
         themeStatusTextView.text = "Welcome! ${authH.getUserName()}"
 
+        // Logout Button
         val logout = findViewById<Button>(R.id.logout)
         logout.setOnClickListener {
             authH.logoutUser()
             startActivity(Intent(this, login_screen::class.java))
             finish()
+        }
+
+        // Initialize Bottom Navigation
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> loadFragment(Home_Fragement())
+                R.id.nav_explore -> loadFragment(ExploreFragment())
+                R.id.nav_profile -> loadFragment(ProfileFragement())
+            }
+            true
+        }
+
+        // Load default fragment
+        if (savedInstanceState == null) {
+            loadFragment(Home_Fragement())
         }
     }
 
@@ -57,14 +96,12 @@ class home_screen : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.dark -> {
-
                 setThemeMode(AppCompatDelegate.MODE_NIGHT_YES)
                 showFeedback("Dark Mode Enabled")
                 true
             }
 
             R.id.light -> {
-
                 setThemeMode(AppCompatDelegate.MODE_NIGHT_NO)
                 showFeedback("Light Mode Enabled")
                 true
@@ -88,9 +125,13 @@ class home_screen : AppCompatActivity() {
     }
 
     private fun showFeedback(message: String) {
-
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         themeStatusTextView.text = message
     }
-}
 
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+}

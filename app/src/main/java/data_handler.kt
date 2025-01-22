@@ -1,3 +1,3 @@
 class  DataHandler{
-    val  n= arrayOf("Ajay","Kumar","Mohani","Aju Bhai")
+    val  n= arrayOf("Ajay","Kumar")
 }
