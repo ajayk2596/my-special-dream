@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">my special app</string>
+    <string name="theme_selector">Theme Selector</string>
+</resources>
