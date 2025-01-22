@@ -1,25 +1,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:id="@+id/splash"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/splash_background"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".Splash_Screen">
+
 
     <ImageView
         android:id="@+id/splashLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_launcher_background"
-        android:contentDescription="App Logo" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="App Logo"
+        android:scaleType="centerInside"
+        android:src="@drawable/ajay"
+        tools:ignore="HardcodedText" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to TechGaon"
-        android:textSize="24sp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/black" />
+        android:layout_marginBottom="8dp"
+        android:text="TechGaon"
+        android:textColor="@color/primary"
+        android:textSize="28sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Innovate. Learn. Android."
+        android:textColor="@color/secondary"
+        android:textSize="16sp" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/splashProgressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:indeterminateTint="@color/primary" />
+
 </LinearLayout>

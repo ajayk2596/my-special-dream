@@ -37,14 +37,14 @@ class home_screen : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+//initialize AuthHelper
         val authH = AuthHelper(this)
-        themeStatusTextView.text = "Welcome, ${authH.getUserName()}"
+        themeStatusTextView.text = "Welcome! ${authH.getUserName()}"
 
-        val logout=findViewById<Button>(R.id.logout)
+        val logout = findViewById<Button>(R.id.logout)
         logout.setOnClickListener {
             authH.logoutUser()
-            startActivity(Intent(this,login_screen::class.java))
+            startActivity(Intent(this, login_screen::class.java))
             finish()
         }
     }
@@ -53,6 +53,7 @@ class home_screen : AppCompatActivity() {
         menuInflater.inflate(R.menu.option_menu, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.dark -> {
@@ -61,12 +62,14 @@ class home_screen : AppCompatActivity() {
                 showFeedback("Dark Mode Enabled")
                 true
             }
+
             R.id.light -> {
 
                 setThemeMode(AppCompatDelegate.MODE_NIGHT_NO)
                 showFeedback("Light Mode Enabled")
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -91,57 +94,3 @@ class home_screen : AppCompatActivity() {
     }
 }
 
-
-
-
-//package com.techgaon.myspecialapp
-//
-//import android.annotation.SuppressLint
-//import android.os.Bundle
-//import android.view.Menu
-//import android.view.MenuItem
-//import android.widget.TextView
-//import androidx.activity.enableEdgeToEdge
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.appcompat.app.AppCompatDelegate
-//import androidx.core.view.ViewCompat
-//import androidx.core.view.WindowInsetsCompat
-//
-//class home_screen : AppCompatActivity() {
-//    @SuppressLint("SetTextI18n", "MissingInflatedId")
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        setContentView(R.layout.activity_home_screen)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-//
-//        val welcomeTextView = findViewById<TextView>(R.id.textViewWelcome)
-//        val authH = AuthHelper(this)
-//        welcomeTextView.text = authH.getUserName()
-//    }
-//
-//    // Inflate the options menu
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.option_menu, menu)
-//        return true
-//    }
-//
-//    // Handle menu item selection (Dark/Light Mode toggle)
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.dark -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                true
-//            }
-//            R.id.light -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-//}

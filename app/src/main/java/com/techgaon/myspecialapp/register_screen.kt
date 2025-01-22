@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,10 +23,10 @@ class register_screen : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-val gologin=findViewById<Button>(R.id.goloin)
+        val gologin = findViewById<TextView>(R.id.goLogin)
 
         gologin.setOnClickListener {
-            startActivity(Intent(this,login_screen::class.java ))
+            startActivity(Intent(this, login_screen::class.java))
         }
         // Initialize views
         val usernameEditText = findViewById<EditText>(R.id.editTextRegisterUsername)
@@ -42,13 +43,12 @@ val gologin=findViewById<Button>(R.id.goloin)
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
 
-            // Validate input
             if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show()
             } else if (password != confirmPassword) {
                 Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show()
             } else {
-                // Attempt registration
+
                 val isRegistered = authHelper.registerUser(username, password)
                 if (isRegistered) {
                     Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show()

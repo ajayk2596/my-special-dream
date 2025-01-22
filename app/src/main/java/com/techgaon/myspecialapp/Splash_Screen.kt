@@ -1,5 +1,4 @@
 package com.techgaon.myspecialapp
-
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -23,10 +22,7 @@ class Splash_Screen : AppCompatActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-
-//            val sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE)
-//            val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-val auth=AuthHelper(this)
+            val auth = AuthHelper(this)
             if (auth.isUserLoggedIn()) {
 
                 startActivity(Intent(this, home_screen::class.java))

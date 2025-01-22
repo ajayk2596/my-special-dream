@@ -14,17 +14,17 @@ class AuthHelper(context: Context) {
 //            return false
 //        }
 //       else{
-            editor.putString("name", name)
-            editor.putString("password", password)
-            editor.putBoolean("is_logged_in", false)
-            editor.apply()
-            return true
+        editor.putString("username", name)
+        editor.putString("password", password)
+        editor.putBoolean("is_logged_in", false)
+        editor.apply()
+        return true
         //}
     }
 
     // Login user
     fun loginUser(name: String, password: String): Boolean {
-        val storedName = sharedPreferences.getString("name", null)
+        val storedName = sharedPreferences.getString("username", null)
         val storedPassword = sharedPreferences.getString("password", null)
         return if (storedName == name && storedPassword == password) {
             editor.putBoolean("is_logged_in", true)
@@ -37,18 +37,18 @@ class AuthHelper(context: Context) {
 
     // Logout user
     fun logoutUser() {
-        editor.putBoolean("is_logged_in", false)    
+        editor.putBoolean("is_logged_in", false)
         editor.apply()
     }
 
-
+    // check Login User
     fun isUserLoggedIn(): Boolean {
         return sharedPreferences.getBoolean("is_logged_in", false)
     }
 
-
+    // Fetch Name User
     fun getUserName(): String? {
-        return sharedPreferences.getString("name", null)
+        return sharedPreferences.getString("username", null)
     }
 
     fun clearUserData() {
