@@ -48,16 +48,19 @@ class home_screen : AppCompatActivity() {
         dbHelper.addStudent("Amit", "10th", 85)
         dbHelper.addStudent("Ajay", "BSc", 90)
 
-        //  data fetch
+
         val students = dbHelper.getAllStudents()
         students.forEach {
             println("ID: ${it["id"]}, Name: ${it["name"]}, Class: ${it["class"]}, Marks: ${it["marks"]}")
         }
 
-        // Kisi student ke marks update karo
+
+
+
+
+
         dbHelper.updateMarks(1, 95)
 
-        // Kisi student ka data delete karo
         dbHelper.deleteStudent(1)
         // Initialize AuthHelper
         val authH = AuthHelper(this)
